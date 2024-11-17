@@ -95,10 +95,10 @@ async function processJob(job) {
             down: false
         }));
 
-        
-        // await redis.del(`screenshot:${url}${viewport}`);
+
+
         await redis.set(`screenshot:${url}${viewport.height}x${viewport.width}`, JSON.stringify({
-            screenshot: `screenshots/${jobId}.png`
+            screenshot: `screenshots/${jobId}.png` 
         }));
 
 
@@ -113,7 +113,7 @@ async function processJob(job) {
             down: true
         }));
 
-        await redis.del(`screenshot:${url}${viewport}`);
+        // await redis.del(`screenshot:${url}${viewport}`);
        
     } finally {
         console.log('Acknowledging job completion to RabbitMQ');

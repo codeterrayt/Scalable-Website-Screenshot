@@ -74,7 +74,7 @@ async function processJob(job) {
         await redis.publish('screenshot-completion', JSON.stringify({
             socketId,
             jobId,
-            screenshotURL: `http://localhost:3002/screenshots/${jobId}.png`,
+            screenshotURL: `screenshots/${jobId}.png`,
             down: false
         }));
         console.log('Completion message published successfully');

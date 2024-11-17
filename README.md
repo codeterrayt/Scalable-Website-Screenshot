@@ -2,6 +2,18 @@
 
 **Scalable-Website-Screenshot** is a scalable web application that generates full-page screenshots of websites. It leverages a distributed architecture for handling multiple screenshot requests simultaneously, providing real-time updates and efficient task management.
 
+
+## Demo Video
+https://github.com/user-attachments/assets/50819078-08a2-470a-b896-03b425b9e3d2
+
+---
+
+## Low-Level Design Diagram
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/48bbbe8d-a8e6-415e-8325-570a3d7a4d7f" alt="Low-Level Design Diagram">
+</p>
+
+
 ## Tech Stack
 
 - **Next.js** (Frontend): React-based framework for building the user interface.
@@ -88,19 +100,6 @@ Each worker is responsible for fetching a task from RabbitMQ, processing the scr
 6. **WebSocket**: Once the task is completed, the frontend is notified via WebSocket, and the screenshot is served to the user.
 
 ---
-
-## Demo Video
-
-A demo video showcasing the application in action can be found here:  
-**[Watch Demo Video](<insert-link-to-video>)**
-
----
-
-## Low-Level Design Diagram
-
-The following diagram illustrates the low-level design of the system:
-
-![Low-Level Design Diagram](<insert-link-to-diagram>)
 
 ## Notes
 

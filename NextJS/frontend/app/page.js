@@ -138,11 +138,11 @@ export default function Home() {
           </button>
         </div>
 
-        {isWebsiteDown && (
+        {/* {isWebsiteDown && (
           <p className="text-red-500 font-semibold text-sm md:text-base">Website is down or unreachable</p>
-        )}
+        )} */}
 
-        <div className="w-full max-w-6xl aspect-[16/9] min-h-[300px] md:min-h-[400px] relative">
+        <div className="w-full max-w-2xl aspect-[16/9] min-h-[300px] md:min-h-[400px] relative">
           {isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-100/10">
               <div className="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-t-2 border-b-2 border-white"></div>
@@ -151,7 +151,14 @@ export default function Home() {
             <img src={`http://${window.location.hostname}:3002/${screenshot}`} alt="Website Screenshot" className="w-full h-full object-contain" />
           ) : (
             <div className="w-full h-full max-w-[100%] max-h-[100%] bg-gray-100/10 flex items-center justify-center text-gray-400 text-sm md:text-base">
-              No screenshot taken yet
+
+              {isWebsiteDown ? (
+                  <p className="text-red-500 font-semibold text-sm md:text-base">Website is down or unreachable</p>
+              ) : (
+                  <p>No screenshot taken yet</p>
+              )}
+
+              
             </div>
           )}
         </div>

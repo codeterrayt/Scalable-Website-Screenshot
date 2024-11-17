@@ -9,6 +9,7 @@ export default function Home() {
   const [screenshot, setScreenshot] = useState(null);
   const [isWebsiteDown, setIsWebsiteDown] = useState(false);
   const [selectedDevice, setSelectedDevice] = useState('desktop');
+  const [useCache, setUseCache] = useState(false);
 
   const deviceResolutions = {
     desktop: { width: 1920, height: 1080 },
@@ -70,7 +71,8 @@ export default function Home() {
         },
         body: JSON.stringify({ 
           url: validUrl,
-          viewport: deviceResolutions[selectedDevice]
+          viewport: deviceResolutions[selectedDevice],
+          useCache: useCache
         })
       });
 
@@ -121,7 +123,20 @@ export default function Home() {
           <option value="4k" style={{ backgroundColor: 'black' }}>4K Display (3840x2160)</option>
         </select>
 
-        <div className="w-full max-w-2xl flex gap-4 items-center justify-center md:justify-start">
+        <div className="w-full max-w-2xl flex gap-4 items-center justify-center md:justify-middle">
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="useCache"
+              checked={useCache}
+              onChange={(e) => setUseCache(e.target.checked)}
+              className="w-4 h-4 accent-foreground"
+            />
+            <label htmlFor="useCache" className="text-sm md:text-base">
+              Use Cached Image
+            </label>
+          </div> 
+          
           <button
             onClick={handleSubmit}
             disabled={isLoading || !socket}

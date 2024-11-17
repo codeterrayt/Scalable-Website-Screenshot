@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # app:
+  #   build: .
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - redis
+  #     - rabbitmq
+  #   volumes:
+  #     - ./screenshots:/app/screenshots
+  #   environment:
+  #     - RABBITMQ_URL=amqp://rabbitmq
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:3.12.14-management-alpine
+    ports:
+      - "5672:5672"   # AMQP protocol port
+      - "15672:15672" # Management UI port
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest

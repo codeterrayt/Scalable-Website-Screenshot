@@ -26,6 +26,12 @@ https://github.com/user-attachments/assets/50819078-08a2-470a-b896-03b425b9e3d2
 
 ## Installation
 
+### Clone 
+```bash
+git clone https://github.com/codeterrayt/Scalable-Website-Screenshot.git
+cd Scalable-Website-Screenshot
+```
+
 ### Docker 
 Start Redis and RabbitMQ Services
 ```bash

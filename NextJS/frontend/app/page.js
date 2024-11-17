@@ -42,8 +42,18 @@ export default function Home() {
     if (!url) return;
 
     try {
-      // Validate URL
-      new URL(url);
+      // Validate URL and add protocol if missing
+      let validUrl = url;
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        validUrl = 'https://' + url;
+      }
+      
+      // Validate URL format
+      try {
+        new URL(validUrl);
+      } catch (error) {
+        throw new Error('Invalid URL format');
+      }
       
       setIsLoading(true);
       setIsWebsiteDown(false);
@@ -59,7 +69,7 @@ export default function Home() {
           'Access-Control-Allow-Headers': 'Content-Type, X-Socket-ID'
         },
         body: JSON.stringify({ 
-          url,
+          url: validUrl,
           viewport: deviceResolutions[selectedDevice]
         })
       });
@@ -70,8 +80,9 @@ export default function Home() {
       }
 
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error.message);
       setIsLoading(false);
+      alert(error.message); // Show error to user
     }
   };
 
@@ -137,7 +148,7 @@ export default function Home() {
               <div className="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-t-2 border-b-2 border-white"></div>
             </div>
           ) : screenshot ? (
-            <img src={screenshot} alt="Website Screenshot" className="w-full h-full object-contain" />
+            <img src={`http://${window.location.hostname}:3002/${screenshot}`} alt="Website Screenshot" className="w-full h-full object-contain" />
           ) : (
             <div className="w-full h-full max-w-[100%] max-h-[100%] bg-gray-100/10 flex items-center justify-center text-gray-400 text-sm md:text-base">
               No screenshot taken yet

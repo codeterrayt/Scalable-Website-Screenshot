@@ -28,7 +28,25 @@ async function initRabbitMQ() {
 // Process screenshot jobs
 async function processJob(job) {
     console.log('Starting to process new job...');
-    const { jobId, url, socketId, viewport } = JSON.parse(job.content.toString());
+    const jobData = JSON.parse(job.content.toString());
+    
+    // Validate required parameters
+    if (!jobData.jobId || !jobData.url || !jobData.socketId) {
+        console.log('Missing required parameters');
+        channel.ack(job);
+        return;
+    }
+
+    const { jobId, url, socketId } = jobData;
+
+    console.log(jobId)
+    
+    // Set default viewport if not provided
+    const viewport = jobData.viewport || {
+        width: 1920,
+        height: 1080
+    };
+
     console.log(`Processing job: ${jobId} for URL: ${url}`);
     console.log(`Socket ID associated with job: ${socketId}`);
     console.log(`Viewport dimensions: ${viewport.width}x${viewport.height}`);
@@ -77,6 +95,14 @@ async function processJob(job) {
             screenshotURL: `screenshots/${jobId}.png`,
             down: false
         }));
+
+        
+        // await redis.del(`screenshot:${url}${viewport}`);
+        await redis.set(`screenshot:${url}${viewport.height}x${viewport.width}`, JSON.stringify({
+            screenshot: `screenshots/${jobId}.png`
+        }));
+
+
         console.log('Completion message published successfully');
     } catch (error) {
         console.error(`Error processing job ${jobId}:`, error);
@@ -87,6 +113,9 @@ async function processJob(job) {
             screenshotURL: '',
             down: true
         }));
+
+        await redis.del(`screenshot:${url}${viewport}`);
+       
     } finally {
         console.log('Acknowledging job completion to RabbitMQ');
         channel.ack(job);

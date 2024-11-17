@@ -26,6 +26,12 @@ https://github.com/user-attachments/assets/50819078-08a2-470a-b896-03b425b9e3d2
 
 ## Installation
 
+### Docker 
+#### Start Redis and RabbitMQ Services
+```bash
+docker-compose up
+```
+
 ### 1. **Frontend (Next.js)**
 
 To set up the frontend, navigate to the `NextJS/frontend` directory and install the dependencies:

@@ -27,7 +27,7 @@ https://github.com/user-attachments/assets/50819078-08a2-470a-b896-03b425b9e3d2
 ## Installation
 
 ### Docker 
-#### Start Redis and RabbitMQ Services
+Start Redis and RabbitMQ Services
 ```bash
 docker-compose up
 ```
